@@ -18,6 +18,8 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         mapView.showsUserLocation = true
+        
+        addAnnotation()
 
     }
 
@@ -26,6 +28,14 @@ class MapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //add annotation on the map.
+    func addAnnotation(){
+        var annotation = MKPointAnnotation()
+        annotation.title = "Another Location"
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 21.283921, longitude: -157.831661)
+        mapView.addAnnotation(annotation)
+        mapView.centerCoordinate = annotation.coordinate
+    }
 
     /*
     // MARK: - Navigation
