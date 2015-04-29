@@ -30,12 +30,21 @@ class LoginViewController: UIViewController {
         
         if userNameTextField.text != "" && passwordTextField.text != ""{
             println("userName = \(userNameTextField.text) and password \(passwordTextField.text))")
-            UdacityClient.sharedInstance().getSessionID(userNameTextField.text, password: passwordTextField.text)
+            //            UdacityClient.sharedInstance().getSessionID(userNameTextField.text, password: passwordTextField.text)
+            
+            UdacityClient.sharedInstance().getSessionID(userNameTextField.text, password: passwordTextField.text, completionHandler: { (sessionID, error) -> Void in
+                
+                if(error != nil){
+                    println("Error Login : \(error)")
+                }else{
+                    println("LoginSuccess = \(sessionID)")
+                }
+            })
+            
+            
         }else{
             println("userName and password field cannot be empty :)")
         }
-        
-        //
         
     }
     
