@@ -20,15 +20,15 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
         
         ParseClient.sharedInstance().getStudentLocations { (studentLocations, error) -> Void in
-            if let studentInfos = studentLocations{
-                for location: StudentLocation in studentInfos{
-                    println("firstname = \(location.firstName)")
-                }
+            if let stndLocations = studentLocations{
+                println("--- Recieved Response ----")
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.studentLocations = stndLocations
+                self.addAnnotations()
             }
         }
         
         //addAnnotation()
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,12 +37,18 @@ class MapViewController: UIViewController {
     }
     
     //add annotation on the map.
-    func addAnnotation(){
-        var annotation = MKPointAnnotation()
-        annotation.title = "Another Location"
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 21.283921, longitude: -157.831661)
-        mapView.addAnnotation(annotation)
-        mapView.centerCoordinate = annotation.coordinate
+    func addAnnotations(){
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        if let studentsLocations = appDelegate.studentLocations{
+            for studentLocation: StudentLocation in studentsLocations{
+                var annotation = MKPointAnnotation()
+                annotation.title = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
+                annotation.coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude!, longitude: studentLocation.longitude!)
+                mapView.addAnnotation(annotation)
+                println("Adding")
+            }
+            println("--- Finished Response ----")
+        }
     }
     
     /*

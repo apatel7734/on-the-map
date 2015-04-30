@@ -35,7 +35,7 @@ class StudentLocation {
         
         self.mediaUrl = jsonDisctionary.valueForKey("mediaURL") as? String
         self.firstName = jsonDisctionary.valueForKey("firstName") as? String
-        self.lastName = jsonDisctionary.valueForKey("mediaURL") as? String
+        self.lastName = jsonDisctionary.valueForKey("lastName") as? String
         self.latitude = jsonDisctionary.valueForKey("latitude") as? CLLocationDegrees
         self.longitude = jsonDisctionary.valueForKey("longitude")as? CLLocationDegrees
         self.mapString = jsonDisctionary.valueForKey("mapString") as? String
