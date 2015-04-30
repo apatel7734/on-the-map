@@ -10,7 +10,7 @@ import Foundation
 
 class ParseClient: NetworkClient {
     
-    func getStudentLocations(){
+    func getStudentLocations(completionHandler: (studentLocations: [StudentLocation]?,error: NSError?) -> Void){
         
         let parameters = [Parameters.LIMIT : 100]
         
@@ -36,17 +36,23 @@ class ParseClient: NetworkClient {
             //step.6 handle error.
             if requestError != nil{
                 //handle error here.
-                println("requestError = \(requestError)")
+                completionHandler(studentLocations: nil, error: requestError)
+                
             }else{
                 //step.7 parse the response error/success
                 //                println(NSString(data: data, encoding: NSUTF8StringEncoding))
                 
                 self.parseJson(data, completionHandler: {(result, error) -> Void in
                     let results: [NSDictionary] = result?.valueForKey("results") as! [NSDictionary]
+                    
+                    var studentLocations:[StudentLocation] = [StudentLocation]()
+                    
                     for oneResult: NSDictionary in results{
-                        let mediaUrl:String = oneResult.valueForKey("mediaURL") as! String
-                        println("MediaUrl = \(mediaUrl)")
+                        var studentLocation = StudentLocation(jsonDisctionary: oneResult)
+                        studentLocations.append(studentLocation)
                     }
+                    completionHandler(studentLocations: studentLocations, error: nil)
+                    
                 })
             }
             
