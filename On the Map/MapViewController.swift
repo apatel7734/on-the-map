@@ -21,7 +21,6 @@ class MapViewController: UIViewController {
         
         ParseClient.sharedInstance().getStudentLocations { (studentLocations, error) -> Void in
             if let stndLocations = studentLocations{
-                println("--- Recieved Response ----")
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.studentLocations = stndLocations
                 self.addAnnotations()
@@ -45,9 +44,7 @@ class MapViewController: UIViewController {
                 annotation.title = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
                 annotation.coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude!, longitude: studentLocation.longitude!)
                 mapView.addAnnotation(annotation)
-                println("Adding")
             }
-            println("--- Finished Response ----")
         }
     }
     
