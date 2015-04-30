@@ -22,6 +22,8 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         listTableView.dataSource = self
     }
     
+    
+    var pin = UIImage(named: "pin")
     var studentLocations = [StudentLocation]()
     override func viewWillAppear(animated: Bool) {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -35,6 +37,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         var studentLocation = self.studentLocations[indexPath.row]
         
         cell.textLabel?.text = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
+        cell.imageView?.image = pin
         
         return cell
     }
