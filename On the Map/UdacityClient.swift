@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UdacityClient: NSObject {
+class UdacityClient: NetworkClient {
     
     
     /*
@@ -71,21 +71,7 @@ class UdacityClient: NSObject {
         })
         
         //step.5 make request
-        task.resume()
-        
-    }
-    
-    func parseJson(jsonData: NSData, completionHandler: (result: AnyObject?, error: NSError?) -> Void){
-        
-        var parsingError: NSError? = nil
-        let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
-        
-        if let error = parsingError{
-            println("Error = \(error)")
-            completionHandler(result: nil, error: error)
-        }else{
-            completionHandler(result: parsedResult, error: nil)
-        }
+        task.resume()   
     }
     
     
