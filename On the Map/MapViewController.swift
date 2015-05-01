@@ -88,8 +88,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
-        var mediaURL = view.annotation.subtitle
-        println("MediaUrl = \(mediaURL)")
+        if let mediaUrl = view.annotation.subtitle{
+            var url = NSURL(string: mediaUrl)
+            UIApplication.sharedApplication().openURL(url!)
+        }
     }
     
     
