@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
     
     
     @IBOutlet weak var mapView: MKMapView!
@@ -18,6 +18,8 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         mapView.showsUserLocation = true
+        mapView.delegate = self
+        
         
         ParseClient.sharedInstance().getStudentLocations { (studentLocations, error) -> Void in
             if let stndLocations = studentLocations{
@@ -27,7 +29,6 @@ class MapViewController: UIViewController {
             }
         }
         
-        //addAnnotation()
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,13 +41,57 @@ class MapViewController: UIViewController {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let studentsLocations = appDelegate.studentLocations{
             for studentLocation: StudentLocation in studentsLocations{
+                println("adding annotation....")
                 var annotation = MKPointAnnotation()
                 annotation.title = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
+                annotation.subtitle = "\(studentLocation.mediaUrl!)"
                 annotation.coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude!, longitude: studentLocation.longitude!)
                 mapView.addAnnotation(annotation)
+                
             }
         }
     }
+    
+    
+    // MARK: - mapview delegates
+    
+    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        println("annotation clicked")
+    }
+    
+    let reuseId = "test"
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        println("annotation view")
+        
+        if(annotation is MKUserLocation){
+            //if annotation is not MKPointAnnotation then return nil so map draws default.
+            return nil
+        }
+        
+        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
+        
+        if(annotationView == nil){
+            
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            let button : UIButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
+            annotationView.rightCalloutAccessoryView = button
+            //notice that only canShowCallout wont work unless we add button to annotationView
+            annotationView.canShowCallout = true
+            
+        }else{
+            annotationView.annotation = annotation
+        }
+        
+        return annotationView
+    }
+    
+    
+    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+        var mediaURL = view.annotation.subtitle
+        println("MediaUrl = \(mediaURL)")
+    }
+    
     
     /*
     // MARK: - Navigation
