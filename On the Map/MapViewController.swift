@@ -41,7 +41,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if let studentsLocations = appDelegate.studentLocations{
             for studentLocation: StudentLocation in studentsLocations{
-                println("adding annotation....")
                 var annotation = MKPointAnnotation()
                 annotation.title = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
                 annotation.subtitle = "\(studentLocation.mediaUrl!)"
@@ -55,14 +54,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - mapview delegates
     
-    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
-        println("annotation clicked")
-    }
-    
     let reuseId = "test"
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        println("annotation view")
         
         if(annotation is MKUserLocation){
             //if annotation is not MKPointAnnotation then return nil so map draws default.

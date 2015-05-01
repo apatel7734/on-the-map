@@ -10,10 +10,15 @@ import UIKit
 
 class TableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
+    //MARK: - outlets
     @IBOutlet weak var listTableView: UITableView!
     
     
+    //MARK: - global variables
+    var pin = UIImage(named: "pin")
+    var studentLocations = [StudentLocation]()
+    
+    //MARK: - lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +27,17 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         listTableView.dataSource = self
     }
     
-    
-    var pin = UIImage(named: "pin")
-    var studentLocations = [StudentLocation]()
     override func viewWillAppear(animated: Bool) {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         studentLocations = appDelegate.studentLocations!
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: - tableview delegates
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell = tableView.dequeueReusableCellWithIdentifier("tableviewcell", forIndexPath: indexPath) as! UITableViewCell
@@ -47,14 +55,16 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return studentLocations.count
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        listTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        var stndLocation = studentLocations[indexPath.row]
+        UIApplication.sharedApplication().openURL(NSURL(string: stndLocation.mediaUrl!)!)
+        
     }
-    
     
     
     /*
