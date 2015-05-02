@@ -23,6 +23,7 @@
 		75CDD9231AED5F9E00AA7340 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CDD9221AED5F9E00AA7340 /* UdacityClient.swift */; };
 		75CDD9251AED60EA00AA7340 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CDD9241AED60EA00AA7340 /* Constants.swift */; };
 		75D3DC991AF44A26001ACCA9 /* BaseUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D3DC981AF44A26001ACCA9 /* BaseUINavigationController.swift */; };
+		75D3DC9B1AF45589001ACCA9 /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D3DC9A1AF45589001ACCA9 /* InformationPostingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		75CDD9221AED5F9E00AA7340 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		75CDD9241AED60EA00AA7340 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		75D3DC981AF44A26001ACCA9 /* BaseUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseUINavigationController.swift; sourceTree = "<group>"; };
+		75D3DC9A1AF45589001ACCA9 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 				752133111AF17611005A5A95 /* MapViewController.swift */,
 				752133131AF177FF005A5A95 /* TableViewController.swift */,
 				75D3DC981AF44A26001ACCA9 /* BaseUINavigationController.swift */,
+				75D3DC9A1AF45589001ACCA9 /* InformationPostingViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				75CDD9231AED5F9E00AA7340 /* UdacityClient.swift in Sources */,
 				752133121AF17611005A5A95 /* MapViewController.swift in Sources */,
 				75CDD9251AED60EA00AA7340 /* Constants.swift in Sources */,
+				75D3DC9B1AF45589001ACCA9 /* InformationPostingViewController.swift in Sources */,
 				7521331C1AF19CCB005A5A95 /* NetworkClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
