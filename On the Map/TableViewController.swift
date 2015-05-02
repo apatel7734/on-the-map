@@ -88,6 +88,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
+    @IBAction func didInformationPostClicked(sender: AnyObject) {
+    }
+    
     
     /*
     // MARK: - Navigation

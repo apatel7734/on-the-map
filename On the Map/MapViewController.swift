@@ -103,6 +103,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     
+    
+    @IBAction func didInformationPostClicked(sender: AnyObject) {
+        
+    }
+    
+    
     /*
     // MARK: - Navigation
     
