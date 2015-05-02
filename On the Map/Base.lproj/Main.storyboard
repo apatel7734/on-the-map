@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YMx-cR-Wmi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dRr-Bp-D55">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -77,10 +77,10 @@
             </objects>
             <point key="canvasLocation" x="-689" y="54"/>
         </scene>
-        <!--Table -->
+        <!--Table List-->
         <scene sceneID="4aq-Rz-PJI">
             <objects>
-                <viewController title="On The Map" id="zQz-Sf-5z6" userLabel="Table " customClass="TableViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="On The Map" id="zQz-Sf-5z6" userLabel="Table List" customClass="TableViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PDm-BK-EDT"/>
                         <viewControllerLayoutGuide type="bottom" id="bPM-JY-q2Q"/>
@@ -109,6 +109,7 @@
                         <barButtonItem key="leftBarButtonItem" image="pin" id="XB1-AC-pF4">
                             <connections>
                                 <action selector="didInformationPostClicked:" destination="zQz-Sf-5z6" id="qXj-J1-Zj0"/>
+                                <segue destination="YMx-cR-Wmi" kind="presentation" id="1pQ-VJ-YoT"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="RdQ-Dd-vGk">
@@ -125,10 +126,10 @@
             </objects>
             <point key="canvasLocation" x="1695" y="385"/>
         </scene>
-        <!--View Controller-->
+        <!--location-->
         <scene sceneID="tE3-YM-CxV">
             <objects>
-                <viewController id="YMx-cR-Wmi" sceneMemberID="viewController">
+                <viewController id="YMx-cR-Wmi" userLabel="location" customClass="PostLocationViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NVH-qG-pqj"/>
                         <viewControllerLayoutGuide type="bottom" id="OJc-To-wu0"/>
@@ -181,8 +182,18 @@
                                     <constraint firstAttribute="width" constant="138" id="5uY-3l-axC"/>
                                     <constraint firstAttribute="height" constant="30" id="9Cs-MD-aX2"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <state key="normal" title="Find on the Map">
                                     <color key="titleColor" red="0.58431372550000005" green="0.16862745100000001" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="didFindLocationClicked:" destination="YMx-cR-Wmi" eventType="touchUpInside" id="Zj5-Et-v5z"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d7O-Oj-n5d">
+                                <rect key="frame" x="547" y="20" width="37" height="30"/>
+                                <state key="normal" title="close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                         </subviews>
@@ -202,15 +213,18 @@
                             <constraint firstItem="tfi-VY-Ho0" firstAttribute="top" secondItem="16o-ZH-RAS" secondAttribute="bottom" constant="3" id="ypk-a8-OlX"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="locationTextField" destination="vHd-se-nYA" id="vNU-iO-VWe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKL-JU-qCO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3618" y="-364"/>
+            <point key="canvasLocation" x="2560" y="130"/>
         </scene>
-        <!--View Controller-->
+        <!--link-->
         <scene sceneID="GzI-Al-bzs">
             <objects>
-                <viewController id="clQ-iE-eyn" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="urlviewcontroller" id="clQ-iE-eyn" userLabel="link" customClass="PostUrlViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="P4c-HY-SxT"/>
                         <viewControllerLayoutGuide type="bottom" id="sUh-JF-KLF"/>
@@ -227,13 +241,29 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="URL"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pW9-zg-1zP">
+                                        <rect key="frame" x="535" y="25" width="40" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="FCQ-lf-9wi"/>
+                                            <constraint firstAttribute="height" constant="30" id="osq-ID-PrA"/>
+                                        </constraints>
+                                        <state key="normal" title="Close">
+                                            <color key="titleColor" red="0.58431372550000005" green="0.16862745100000001" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didCloseClicked:" destination="clQ-iE-eyn" eventType="touchUpInside" id="C1S-ct-PCN"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.066666666669999999" green="0.59999999999999998" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="yDs-Z9-zSB" firstAttribute="leading" secondItem="NLH-Kg-7QR" secondAttribute="leading" constant="8" id="Fwg-fB-V38"/>
+                                    <constraint firstAttribute="trailing" secondItem="pW9-zg-1zP" secondAttribute="trailing" constant="25" id="JvW-xV-eoy"/>
                                     <constraint firstAttribute="centerY" secondItem="yDs-Z9-zSB" secondAttribute="centerY" id="aYw-if-cGV"/>
                                     <constraint firstAttribute="trailing" secondItem="yDs-Z9-zSB" secondAttribute="trailing" constant="8" id="bS7-PK-tue"/>
                                     <constraint firstAttribute="height" constant="253" id="fW8-eN-2ot"/>
+                                    <constraint firstItem="pW9-zg-1zP" firstAttribute="top" secondItem="NLH-Kg-7QR" secondAttribute="top" constant="25" id="z66-qI-Scv"/>
                                 </constraints>
                             </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PJU-Wr-VFJ">
@@ -274,7 +304,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2y-gV-bHr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3635" y="519"/>
+            <point key="canvasLocation" x="3373" y="130"/>
         </scene>
         <!--Map-->
         <scene sceneID="LPg-Hs-90j">
@@ -298,6 +328,7 @@
                         <barButtonItem key="leftBarButtonItem" image="pin" id="NEG-69-As4">
                             <connections>
                                 <action selector="didInformationPostClicked:" destination="DdG-l0-Ci8" id="N0u-y4-EAN"/>
+                                <segue destination="YMx-cR-Wmi" kind="presentation" id="oew-m4-20X"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="DCb-eO-ZvR"/>
@@ -373,4 +404,7 @@
         <image name="map" width="32" height="32"/>
         <image name="pin" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="1pQ-VJ-YoT"/>
+    </inferredMetricsTieBreakers>
 </document>

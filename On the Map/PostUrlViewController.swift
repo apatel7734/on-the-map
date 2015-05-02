@@ -1,35 +1,45 @@
 //
-//  InformationPostingViewController.swift
+//  PostUrlViewController.swift
 //  On the Map
 //
-//  Created by Ashish Patel on 5/1/15.
+//  Created by Ashish Patel on 5/2/15.
 //  Copyright (c) 2015 Average Techie. All rights reserved.
 //
 
 import UIKit
+import CoreLocation
 
-class InformationPostingViewController: UINavigationController {
-
+class PostUrlViewController: UIViewController {
+    
+    
+    var location: CLLocation!
+    
+    //MARK: - lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        println("Coordinates = \(location.coordinate)")
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
+    @IBAction func didCloseClicked(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
