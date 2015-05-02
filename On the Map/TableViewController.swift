@@ -25,11 +25,18 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Do any additional setup after loading the view.
         listTableView.delegate = self
         listTableView.dataSource = self
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        studentLocations = appDelegate.studentLocations!
+        
+        if studentLocations.isEmpty{
+            refreshData()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        studentLocations = appDelegate.studentLocations!
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,6 +72,21 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         UIApplication.sharedApplication().openURL(NSURL(string: stndLocation.mediaUrl!)!)
         
     }
+    
+    func refreshData(){
+        ParseClient.sharedInstance().getStudentLocations { (returnedStudentLocations, error) -> Void in
+            if let stndLocations = returnedStudentLocations{
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.studentLocations = stndLocations
+            }
+        }
+    }
+    
+    
+    @IBAction func didRefreshStudentLocationClicked(sender: AnyObject) {
+        refreshData()
+    }
+    
     
     
     /*

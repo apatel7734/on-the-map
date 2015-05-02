@@ -105,7 +105,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="On The Map" id="svY-2I-4SQ"/>
+                    <navigationItem key="navigationItem" title="On The Map" id="svY-2I-4SQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="RdQ-Dd-vGk">
+                            <connections>
+                                <action selector="didRefreshStudentLocationClicked:" destination="zQz-Sf-5z6" id="nbl-3M-6rf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="listTableView" destination="mwM-ql-MJb" id="3WT-eM-izF"/>
                     </connections>
@@ -132,7 +138,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="On The Map" id="0zO-Q7-vS2"/>
+                    <navigationItem key="navigationItem" title="On The Map" id="0zO-Q7-vS2">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="DCb-eO-ZvR"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="3A1-cU-sHp" id="7Z2-pb-UKN"/>
                     </connections>
@@ -163,6 +171,7 @@
         <!--Map Navigation-->
         <scene sceneID="c9d-DK-fh3">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LXT-BP-UFj" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="U1K-MP-pzb" userLabel="Map Navigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="owK-JN-2s0"/>
                     <toolbarItems/>
@@ -175,13 +184,13 @@
                         <segue destination="DdG-l0-Ci8" kind="relationship" relationship="rootViewController" id="liC-b4-vhA"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LXT-BP-UFj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="883" y="-277"/>
         </scene>
         <!--List Navigation-->
         <scene sceneID="wlX-7W-uKi">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Utb-0k-bfa" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VIv-op-Xw9" userLabel="List Navigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="List" image="list" id="Mhm-OT-vbe"/>
                     <toolbarItems/>
@@ -194,7 +203,6 @@
                         <segue destination="zQz-Sf-5z6" kind="relationship" relationship="rootViewController" id="jaK-QF-sZM"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Utb-0k-bfa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="883" y="385"/>
         </scene>

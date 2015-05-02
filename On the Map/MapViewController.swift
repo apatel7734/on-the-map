@@ -14,21 +14,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    var studentLocations = [StudentLocation]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         mapView.showsUserLocation = true
         mapView.delegate = self
         
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        studentLocations = appDelegate.studentLocations!
         
-        ParseClient.sharedInstance().getStudentLocations { (studentLocations, error) -> Void in
-            if let stndLocations = studentLocations{
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                appDelegate.studentLocations = stndLocations
-                self.addAnnotations()
-            }
+        if studentLocations.isEmpty{
+            refreshData()
         }
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,17 +36,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     //add annotation on the map.
-    func addAnnotations(){
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        if let studentsLocations = appDelegate.studentLocations{
-            for studentLocation: StudentLocation in studentsLocations{
-                var annotation = MKPointAnnotation()
-                annotation.title = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
-                annotation.subtitle = "\(studentLocation.mediaUrl!)"
-                annotation.coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude!, longitude: studentLocation.longitude!)
-                mapView.addAnnotation(annotation)
-                
-            }
+    func addAnnotations(studentLocations: [StudentLocation]){
+        if studentLocations.isEmpty{
+            return
+        }
+        for studentLocation: StudentLocation in studentLocations{
+            var annotation = MKPointAnnotation()
+            annotation.title = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
+            annotation.subtitle = "\(studentLocation.mediaUrl!)"
+            annotation.coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude!, longitude: studentLocation.longitude!)
+            mapView.addAnnotation(annotation)
         }
     }
     
@@ -86,6 +84,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             var url = NSURL(string: mediaUrl)
             UIApplication.sharedApplication().openURL(url!)
         }
+    }
+    
+    
+    func refreshData(){
+        ParseClient.sharedInstance().getStudentLocations {(returnedStudentLocations, error) -> Void in
+            if let stndLocations = returnedStudentLocations{
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                appDelegate.studentLocations = stndLocations
+                self.addAnnotations(stndLocations)
+            }
+        }
+    }
+    
+    
+    @IBAction func didRefreshStudentLocationClicked(sender: AnyObject) {
+        refreshData()
     }
     
     
