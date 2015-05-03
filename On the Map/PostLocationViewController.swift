@@ -57,7 +57,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
                 if let placeMark: CLPlacemark = locations?[0] as? CLPlacemark{
                     let postUrlVC  = self.storyboard?.instantiateViewControllerWithIdentifier("urlviewcontroller") as!
                     PostUrlViewController
-                    postUrlVC.location = placeMark.location
+                    postUrlVC.placeMark = placeMark
                     self.presentViewController(postUrlVC, animated: true, completion: nil)
                 }
             }

@@ -8,17 +8,22 @@
 
 import UIKit
 import CoreLocation
+import MapKit
+
 
 class PostUrlViewController: UIViewController {
     
     
-    var location: CLLocation!
+    var placeMark: CLPlacemark!
+
+    @IBOutlet weak var mapView: MKMapView!
+    
     
     //MARK: - lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        println("Coordinates = \(location.coordinate)")
+        addAnnotation()
     }
     
     override func didReceiveMemoryWarning() {
@@ -29,6 +34,20 @@ class PostUrlViewController: UIViewController {
     
     @IBAction func didCloseClicked(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addAnnotation(){
+        var annotation = MKPointAnnotation()
+        annotation.title = "\(placeMark.locality) \(placeMark.administrativeArea)"
+        annotation.coordinate = placeMark.location.coordinate
+        mapView.addAnnotation(annotation)
+
+        //mark center of the map on the screen.
+        mapView.centerCoordinate = placeMark.location.coordinate
+        
+        //zoom to locatin
+        let region = MKCoordinateRegionMakeWithDistance(placeMark.location.coordinate, 10000, 10000)
+        mapView.setRegion(region, animated: true)
     }
     
     
