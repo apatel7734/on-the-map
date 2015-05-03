@@ -79,6 +79,13 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
     }
     
     
+    @IBAction func didCloseClicked(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    
+    
     
     /*
     // MARK: - Navigation

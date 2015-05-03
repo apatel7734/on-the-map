@@ -51,6 +51,14 @@ class PostUrlViewController: UIViewController {
     }
     
     
+    @IBAction func didSubmitClicked(sender: AnyObject) {
+        //validate weblink
+        
+        //post weblink to parse
+        
+    }
+    
+    
     /*
     // MARK: - Navigation
     
