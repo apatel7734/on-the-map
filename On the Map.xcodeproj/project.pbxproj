@@ -25,6 +25,7 @@
 		75CDD9231AED5F9E00AA7340 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CDD9221AED5F9E00AA7340 /* UdacityClient.swift */; };
 		75CDD9251AED60EA00AA7340 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CDD9241AED60EA00AA7340 /* Constants.swift */; };
 		75D3DC991AF44A26001ACCA9 /* BaseUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D3DC981AF44A26001ACCA9 /* BaseUINavigationController.swift */; };
+		75E99FD71AF955EE006F5203 /* UdacitySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E99FD61AF955EE006F5203 /* UdacitySession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		75CDD9221AED5F9E00AA7340 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		75CDD9241AED60EA00AA7340 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		75D3DC981AF44A26001ACCA9 /* BaseUINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseUINavigationController.swift; sourceTree = "<group>"; };
+		75E99FD61AF955EE006F5203 /* UdacitySession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacitySession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				7521331D1AF1A920005A5A95 /* StudentLocation.swift */,
+				75E99FD61AF955EE006F5203 /* UdacitySession.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			files = (
 				75D3DC991AF44A26001ACCA9 /* BaseUINavigationController.swift in Sources */,
 				7521331E1AF1A920005A5A95 /* StudentLocation.swift in Sources */,
+				75E99FD71AF955EE006F5203 /* UdacitySession.swift in Sources */,
 				75CDD9021AEC67CD00AA7340 /* LoginViewController.swift in Sources */,
 				752133141AF177FF005A5A95 /* TableViewController.swift in Sources */,
 				7521331A1AF198C3005A5A95 /* ParseClient.swift in Sources */,

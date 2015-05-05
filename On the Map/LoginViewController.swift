@@ -28,24 +28,29 @@ class LoginViewController: UIViewController {
     @IBAction func didLoginClicked(sender: AnyObject) {
         var errorString:String?
         
-        if userNameTextField.text != "" && passwordTextField.text != ""{
-            println("userName = \(userNameTextField.text) and password \(passwordTextField.text))")
-            //            UdacityClient.sharedInstance().getSessionID(userNameTextField.text, password: passwordTextField.text)
+        //validate input.
+        if(validateInput()){
             
-            UdacityClient.sharedInstance().getSessionID(userNameTextField.text, password: passwordTextField.text, completionHandler: { (sessionID, error) -> Void in
+            //get sessionID from Udacity.
+            UdacityClient.sharedInstance().getSessionID(userNameTextField.text, password: passwordTextField.text, completionHandler: { (udacitySession, error) -> Void in
                 
                 if(error != nil){
-                    println("Error Login : \(error)")
+                    println("Error Login : \(error?.domain)")
                 }else{
-                    println("LoginSuccess = \(sessionID)")
+                    println("LoginSuccess = \(udacitySession?.sessionID)")
                 }
             })
-            
-            
         }else{
+            //present userwith error.
             println("userName and password field cannot be empty :)")
         }
-        
+    }
+    
+    func validateInput() -> Bool{
+        if userNameTextField.text.isEmpty || passwordTextField.text.isEmpty{
+            return false
+        }
+        return true
     }
     
     @IBAction func didSignUpClicked(sender: AnyObject) {

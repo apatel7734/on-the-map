@@ -18,27 +18,38 @@ extension ParseClient{
     
     struct Methods {
         static let STUDENT_LOCATION: String = "StudentLocation"
+        static let POST = "POST"
+        static let GET = "GET"
     }
     
     struct Parameters {
         static let LIMIT = "limit"
+        static let APP_ID_KEY = "X-Parse-Application-Id"
+        static let REST_API_KEY = "X-Parse-REST-API-Key"
+        static let APPLICATION_JSON = "application/json"
+        static let CONTENT_TYPE = "Content-Type"
+        static let RESULTS = "results"
     }
-
+    
 }
 
 extension UdacityClient{
     
     struct Constants {
-        static let API_KEY: String = ""
         static let BASE_URL: String = "https://www.udacity.com/api/"
         
     }
     
     struct Methods {
+        static let POST = "POST"
+        static let GET = "GET"
         static let SESSION:String="session"
     }
     
     struct Parameters {
+        static let APPLICATION_JSON = "application/json"
+        static let CONTENT_TYPE = "Content-Type"
+        static let ACCEPT = "Accept"
     }
 }
 

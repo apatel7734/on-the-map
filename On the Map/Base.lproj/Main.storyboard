@@ -190,8 +190,12 @@
                                     <action selector="didFindLocationClicked:" destination="YMx-cR-Wmi" eventType="touchUpInside" id="Zj5-Et-v5z"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d7O-Oj-n5d">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d7O-Oj-n5d">
                                 <rect key="frame" x="547" y="20" width="40" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="J7s-8w-AQj"/>
+                                    <constraint firstAttribute="width" constant="40" id="Ssc-AP-Y0D"/>
+                                </constraints>
                                 <state key="normal" title="Close">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -204,7 +208,9 @@
                         <constraints>
                             <constraint firstItem="OJc-To-wu0" firstAttribute="top" secondItem="ydo-8A-rvM" secondAttribute="bottom" constant="78" id="9Dr-j2-w3i"/>
                             <constraint firstAttribute="centerX" secondItem="ydo-8A-rvM" secondAttribute="centerX" id="BBz-ah-ByZ"/>
+                            <constraint firstItem="d7O-Oj-n5d" firstAttribute="top" secondItem="NVH-qG-pqj" secondAttribute="bottom" id="EY3-95-vCu"/>
                             <constraint firstAttribute="centerX" secondItem="tfi-VY-Ho0" secondAttribute="centerX" id="IO5-TB-hdi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="d7O-Oj-n5d" secondAttribute="trailing" constant="-3" id="IgC-Ik-Epq"/>
                             <constraint firstAttribute="centerX" secondItem="Gzu-y8-BAr" secondAttribute="centerX" id="L4O-rz-jsz"/>
                             <constraint firstItem="16o-ZH-RAS" firstAttribute="top" secondItem="NVH-qG-pqj" secondAttribute="bottom" constant="25" id="OVe-ca-234"/>
                             <constraint firstItem="Q3K-zS-YeH" firstAttribute="leading" secondItem="eU5-IR-BUk" secondAttribute="leadingMargin" constant="-16" id="eXR-Lj-97Y"/>
