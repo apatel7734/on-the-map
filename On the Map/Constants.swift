@@ -28,6 +28,7 @@ extension ParseClient{
         static let REST_API_KEY = "X-Parse-REST-API-Key"
         static let APPLICATION_JSON = "application/json"
         static let CONTENT_TYPE = "Content-Type"
+        static let ACCEPT = "Accept"
         static let RESULTS = "results"
     }
     

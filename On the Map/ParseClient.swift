@@ -64,7 +64,7 @@ class ParseClient: NetworkClient {
     /**
     * post student location.
     */
-    func postStudentLocation(){
+    func postStudentLocation(studentLocRequest: StudentLocationRequest,completionHandler: (objectID:String?, error:NSError?)->Void){
         
         var urlString = NSURL(string: Constants.BASE_URL + Methods.STUDENT_LOCATION)
         
@@ -75,18 +75,41 @@ class ParseClient: NetworkClient {
         request.addValue(Constants.APPLICATION_ID, forHTTPHeaderField: Parameters.APP_ID_KEY)
         request.addValue(Constants.REST_API_KEY, forHTTPHeaderField: Parameters.REST_API_KEY)
         request.addValue(Parameters.APPLICATION_JSON, forHTTPHeaderField: Parameters.CONTENT_TYPE)
-        request.HTTPBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".dataUsingEncoding(NSUTF8StringEncoding)
+        request.addValue(Parameters.APPLICATION_JSON, forHTTPHeaderField: Parameters.ACCEPT)
+        
+        let jsonBody = studentLocRequest.createRequest();
+        var jsonifyError: NSError? = nil
+        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
         
         //step.3 - session
         let session = NSURLSession.sharedSession()
+        
         //step.4 - create task for request
         let task = session.dataTaskWithRequest(request) { data, response, error in
+            
             //step.6 - check for errors
             if error != nil { // Handle error…
-                return
+                //                println("Error = \(error)")
+                completionHandler(objectID: nil, error: error)
+            }else{
+                
+                //step.7 - parse response.
+                self.parseJson(data, completionHandler: { (result, error) -> Void in
+                    if(error != nil){
+                        completionHandler(objectID: nil, error: error)
+                        return
+                    }
+                    let dictData:NSDictionary = result as! NSDictionary
+                    
+                    let objectID: String = dictData.valueForKey("objectId") as! String
+                    
+                    if !objectID.isEmpty {
+                        completionHandler(objectID: objectID, error: nil)
+                    }else{
+                        println("Error but not sure what to return.\(dictData)" )
+                    }
+                })
             }
-            //step.7 - parse response.
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
         }
         //step.5 - call network request.
         task.resume()

@@ -15,8 +15,9 @@ class PostUrlViewController: UIViewController {
     
     
     var placeMark: CLPlacemark!
-
+    
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var webUrlTextField: UITextField!
     
     
     //MARK: - lifecycle methods
@@ -41,7 +42,7 @@ class PostUrlViewController: UIViewController {
         annotation.title = "\(placeMark.locality) \(placeMark.administrativeArea)"
         annotation.coordinate = placeMark.location.coordinate
         mapView.addAnnotation(annotation)
-
+        
         //mark center of the map on the screen.
         mapView.centerCoordinate = placeMark.location.coordinate
         
@@ -55,6 +56,20 @@ class PostUrlViewController: UIViewController {
         //validate weblink
         
         //post weblink to parse
+        var studentRequest = StudentLocationRequest(mapString: "\(placeMark.locality) \(placeMark.administrativeArea)", mediaUrl: webUrlTextField.text, latitude: placeMark.location.coordinate.latitude, longitude: placeMark.location.coordinate.longitude)
+        
+        ParseClient.sharedInstance().postStudentLocation(studentRequest, completionHandler: { (objectID, error) -> Void in
+            
+            //check for errors / success
+            if(error != nil){
+                //handle error.
+                var errorMsg = error?.domain
+                UIAlertView(title: "Error while posting!", message: errorMsg, delegate: nil, cancelButtonTitle: "Ok").show()
+            }else{
+                //handle success response
+                UIAlertView(title: "Success!", message: nil, delegate: nil, cancelButtonTitle: "Ok").show()
+            }
+        })
         
     }
     

@@ -53,8 +53,7 @@ class UdacityClient: NetworkClient {
                     var udaSession = UdacitySession(jsonDict: jsonResponse)
                     
                     if udaSession.status != nil{
-                        //completionHandler(sessionID: nil, error: NSError(domain: error!, code: code!, userInfo: nil))
-                        completionHandler(udaSession: nil, error: NSError(domain: udaSession.errorMsg, code: udaSession.status, userInfo: nil))
+                        completionHandler(udaSession: nil, error: NSError(domain: udaSession.errorMsg!, code: udaSession.status!, userInfo: nil))
                     }else{
                         completionHandler(udaSession: udaSession, error: nil)
                     }

@@ -37,6 +37,9 @@ class LoginViewController: UIViewController {
                 if(error != nil){
                     println("Error Login : \(error?.domain)")
                 }else{
+                    //save session for future use.
+                    var appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+                    appDel.loginUdacitySesison = udacitySession
                     println("LoginSuccess = \(udacitySession?.sessionID)")
                 }
             })

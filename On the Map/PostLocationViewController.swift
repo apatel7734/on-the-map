@@ -53,6 +53,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
             
             //present url link controller
             var locSize = locations.count
+
             if(locSize > 0){
                 if let placeMark: CLPlacemark = locations?[0] as? CLPlacemark{
                     let postUrlVC  = self.storyboard?.instantiateViewControllerWithIdentifier("urlviewcontroller") as!
