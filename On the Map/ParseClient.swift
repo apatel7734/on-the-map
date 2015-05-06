@@ -78,6 +78,7 @@ class ParseClient: NetworkClient {
         request.addValue(Parameters.APPLICATION_JSON, forHTTPHeaderField: Parameters.ACCEPT)
         
         let jsonBody = studentLocRequest.createRequest();
+        println("Jsonbody = \(jsonBody)")
         var jsonifyError: NSError? = nil
         request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
         
@@ -86,28 +87,28 @@ class ParseClient: NetworkClient {
         
         //step.4 - create task for request
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            
             //step.6 - check for errors
-            if error != nil { // Handle error…
-                //                println("Error = \(error)")
+            if error != nil {
+                // Handle error…
                 completionHandler(objectID: nil, error: error)
             }else{
-                
                 //step.7 - parse response.
                 self.parseJson(data, completionHandler: { (result, error) -> Void in
                     if(error != nil){
+                        
                         completionHandler(objectID: nil, error: error)
-                        return
-                    }
-                    let dictData:NSDictionary = result as! NSDictionary
-                    
-                    let objectID: String = dictData.valueForKey("objectId") as! String
-                    
-                    if !objectID.isEmpty {
-                        completionHandler(objectID: objectID, error: nil)
                     }else{
-                        println("Error but not sure what to return.\(dictData)" )
+                        
+                        let dictData:NSDictionary = result as! NSDictionary
+                        let objectID: String = dictData.valueForKey("objectId") as! String
+                        if !objectID.isEmpty {
+                            
+                            completionHandler(objectID: objectID, error: nil)
+                        }else{
+                            println("Error but not sure what to return.\(dictData)" )
+                        }
                     }
+                    
                 })
             }
         }

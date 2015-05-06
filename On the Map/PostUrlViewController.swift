@@ -11,7 +11,7 @@ import CoreLocation
 import MapKit
 
 
-class PostUrlViewController: UIViewController {
+class PostUrlViewController: UIViewController, UITextFieldDelegate{
     
     
     var placeMark: CLPlacemark!
@@ -25,6 +25,7 @@ class PostUrlViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         addAnnotation()
+        webUrlTextField.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,6 +52,12 @@ class PostUrlViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
     
     @IBAction func didSubmitClicked(sender: AnyObject) {
         //validate weblink
@@ -61,16 +68,33 @@ class PostUrlViewController: UIViewController {
         ParseClient.sharedInstance().postStudentLocation(studentRequest, completionHandler: { (objectID, error) -> Void in
             
             //check for errors / success
+            
+            //this code runs in background thread, so anything UI should run on main thread.
             if(error != nil){
                 //handle error.
                 var errorMsg = error?.domain
-                UIAlertView(title: "Error while posting!", message: errorMsg, delegate: nil, cancelButtonTitle: "Ok").show()
+                println("Error : \(errorMsg)")
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.displayAlert("Error :(", msg: errorMsg!)
+                })
             }else{
-                //handle success response
-                UIAlertView(title: "Success!", message: nil, delegate: nil, cancelButtonTitle: "Ok").show()
+                println("Success!")
+                //self.displayAlert()
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.displayAlert("Success :)", msg: "Successfully posted.")
+                })
+                
             }
         })
         
+        
+    }
+    
+    
+    
+    func displayAlert(title:String, msg: String){
+        let alertView = UIAlertView(title: title, message: msg, delegate: nil, cancelButtonTitle: "OK")
+        alertView.show()
     }
     
     
