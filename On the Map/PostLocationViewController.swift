@@ -16,6 +16,9 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var locationTextField: UITextField!
     
+    @IBOutlet weak var findLocationButton: UIButton!
+    
+    
     var placeMark: CLPlacemark?
     
     //MARK: - lifecycle methods
@@ -24,6 +27,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
         super.viewDidLoad()
         locationTextField.delegate = self
         // Do any additional setup after loading the view.
+        findLocationButton.layer.cornerRadius = 5.0
     }
     
     override func didReceiveMemoryWarning() {

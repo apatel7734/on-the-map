@@ -19,6 +19,9 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var webUrlTextField: UITextField!
     
+    @IBOutlet weak var submitButton: UIButton!
+    
+    
     
     //MARK: - lifecycle methods
     override func viewDidLoad() {
@@ -31,6 +34,10 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
         }
         
         webUrlTextField.delegate = self
+        
+        //hide button
+        submitButton.layer.cornerRadius = 5.0
+//        submitButton.hidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -59,6 +66,7 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        submitButton.hidden = false
         return true
     }
     
