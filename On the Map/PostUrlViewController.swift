@@ -24,7 +24,12 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        addAnnotation()
+        if self.placeMark != nil{
+            addAnnotation()
+        }else{
+            println("No Placemark found..")
+        }
+        
         webUrlTextField.delegate = self
     }
     
@@ -60,6 +65,8 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
     
     
     @IBAction func didSubmitClicked(sender: AnyObject) {
+        
+        
         //validate weblink
         
         //post weblink to parse
@@ -93,6 +100,8 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
     
     
     func displayAlert(title:String, msg: String){
+        //        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        
         let alertView = UIAlertView(title: title, message: msg, delegate: nil, cancelButtonTitle: "OK")
         alertView.show()
     }

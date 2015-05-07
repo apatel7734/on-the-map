@@ -16,6 +16,8 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var locationTextField: UITextField!
     
+    var placeMark: CLPlacemark?
+    
     //MARK: - lifecycle methods
     
     override func viewDidLoad() {
@@ -38,6 +40,9 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
     
     //MARK: - IBActions
     @IBAction func didFindLocationClicked(sender: AnyObject) {
+        
+        println("didFindLocationClicked")
+        
         //validate input
         if !validateLocationText(){
             alertUser("Must provide location for post.", alertTitle: "Missing location text.")
@@ -49,17 +54,27 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
             //validate location
             if let locationError:NSError = error as NSError!{
                 self.alertUser(locationError.description, alertTitle: "Geocoding Error!")
+                return
             }
+            
+            if(locations == nil){
+                self.alertUser("Please check string you've provided.", alertTitle: "Zero locations found")
+                return
+            }
+            
             
             //present url link controller
             var locSize = locations.count
-
+            
             if(locSize > 0){
                 if let placeMark: CLPlacemark = locations?[0] as? CLPlacemark{
-                    let postUrlVC  = self.storyboard?.instantiateViewControllerWithIdentifier("urlviewcontroller") as!
-                    PostUrlViewController
-                    postUrlVC.placeMark = placeMark
-                    self.presentViewController(postUrlVC, animated: true, completion: nil)
+                    if(placeMark.locality == nil || placeMark.administrativeArea == nil){
+                        self.alertUser("Please check string you've provided.", alertTitle: "City OR State couldnot be found.")
+                    }else{
+                        self.placeMark = placeMark
+                        self.performSegueWithIdentifier("weburlPushSegue", sender: self)
+                    }
+                    
                 }
             }
         })
@@ -88,14 +103,19 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
     
     
     
-    /*
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
+        
+        if(segue.identifier == "weburlPushSegue"){
+            let postUrlVC =  segue.destinationViewController as! PostUrlViewController
+            postUrlVC.placeMark = self.placeMark
+        }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
-    */
+    
     
 }
