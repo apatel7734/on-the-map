@@ -18,6 +18,10 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        userNameTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        
+        passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
     }
     
     override func didReceiveMemoryWarning() {
@@ -36,11 +40,19 @@ class LoginViewController: UIViewController {
                 
                 if(error != nil){
                     println("Error Login : \(error?.domain)")
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.displayUIAlert("Login Error.", msg: error!.domain)
+                    })
+                    
                 }else{
                     //save session for future use.
                     var appDel = UIApplication.sharedApplication().delegate as! AppDelegate
                     appDel.loginUdacitySesison = udacitySession
                     println("LoginSuccess = \(udacitySession?.sessionID)")
+                    
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.performSegueWithIdentifier("modaltabbarsegue", sender: self)
+                    })
                 }
             })
         }else{
@@ -57,6 +69,16 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func didSignUpClicked(sender: AnyObject) {
+        
+    }
+    
+    
+    func displayUIAlert(title: String, msg: String){
+        UIAlertView(title: title, message: msg, delegate: nil, cancelButtonTitle: "Ok").show()
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
     }
     
