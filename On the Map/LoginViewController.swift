@@ -15,6 +15,9 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var loadingView: UIView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -22,6 +25,9 @@ class LoginViewController: UIViewController {
         userNameTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+
+        loadingView.layer.cornerRadius = 5.0
+        loadingView.hidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,12 +41,14 @@ class LoginViewController: UIViewController {
         //validate input.
         if(validateInput()){
             
+            loadingView.hidden = false
             //get sessionID from Udacity.
             UdacityClient.sharedInstance().getSessionID(userNameTextField.text, password: passwordTextField.text, completionHandler: { (udacitySession, error) -> Void in
                 
                 if(error != nil){
                     println("Error Login : \(error?.domain)")
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.loadingView.hidden = true
                         self.displayUIAlert("Login Error.", msg: error!.domain)
                     })
                     
@@ -51,6 +59,7 @@ class LoginViewController: UIViewController {
                     println("LoginSuccess = \(udacitySession?.sessionID)")
                     
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.loadingView.hidden = true
                         self.performSegueWithIdentifier("modaltabbarsegue", sender: self)
                     })
                 }
