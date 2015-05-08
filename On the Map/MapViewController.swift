@@ -41,12 +41,36 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             return
         }
         for studentLocation: StudentLocation in studentLocations{
-            var annotation = MKPointAnnotation()
-            annotation.title = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
-            annotation.subtitle = "\(studentLocation.mediaUrl!)"
-            annotation.coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude!, longitude: studentLocation.longitude!)
-            mapView.addAnnotation(annotation)
+            if(validateStudentLocation(studentLocation)){
+                var annotation = MKPointAnnotation()
+                annotation.title = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
+                annotation.subtitle = "\(studentLocation.mediaUrl!)"
+                annotation.coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude!, longitude: studentLocation.longitude!)
+                mapView.addAnnotation(annotation)
+            }
+            
         }
+    }
+    
+    func validateStudentLocation(stdntLoc: StudentLocation) -> Bool{
+        var counter = 0
+        
+        if let firstName = stdntLoc.firstName{
+            counter++
+        }
+        
+        if let lastName = stdntLoc.lastName{
+            counter++
+        }
+        
+        if let url = stdntLoc.mediaUrl{
+            counter++
+        }
+        
+        if (stdntLoc.latitude != nil && stdntLoc.longitude != nil){
+            counter++
+        }
+        return counter == 4
     }
     
     
@@ -90,9 +114,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func refreshData(){
         ParseClient.sharedInstance().getStudentLocations {(returnedStudentLocations, error) -> Void in
             if let stndLocations = returnedStudentLocations{
+                
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.studentLocations = stndLocations
                 self.addAnnotations(stndLocations)
+                
             }
         }
     }

@@ -46,7 +46,7 @@ class LoginViewController: UIViewController {
             UdacityClient.sharedInstance().getSessionID(userNameTextField.text, password: passwordTextField.text, completionHandler: { (udacitySession, error) -> Void in
                 
                 if(error != nil){
-                    println("Error Login : \(error?.domain)")
+                    //error in login, display message to the user.
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.loadingView.hidden = true
                         self.displayUIAlert("Login Error.", msg: error!.domain)
@@ -56,7 +56,7 @@ class LoginViewController: UIViewController {
                     //save session for future use.
                     var appDel = UIApplication.sharedApplication().delegate as! AppDelegate
                     appDel.loginUdacitySesison = udacitySession
-                    println("LoginSuccess = \(udacitySession?.sessionID)")
+                    //successfully logged in. go to next screen.
                     
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         self.loadingView.hidden = true
@@ -66,7 +66,7 @@ class LoginViewController: UIViewController {
             })
         }else{
             //present userwith error.
-            println("userName and password field cannot be empty :)")
+            self.displayUIAlert("Missing information!", msg: "Must provide username and password to login.")
         }
     }
     
@@ -88,7 +88,7 @@ class LoginViewController: UIViewController {
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+        //add information to destination view controller here.
     }
     
     
