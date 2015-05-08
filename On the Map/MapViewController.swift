@@ -46,7 +46,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 annotation.title = "\(studentLocation.firstName!) \(studentLocation.lastName!)"
                 annotation.subtitle = "\(studentLocation.mediaUrl!)"
                 annotation.coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude!, longitude: studentLocation.longitude!)
-                mapView.addAnnotation(annotation)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.mapView.addAnnotation(annotation)
+                })
             }
             
         }
@@ -113,12 +115,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func refreshData(){
         ParseClient.sharedInstance().getStudentLocations {(returnedStudentLocations, error) -> Void in
-            if let stndLocations = returnedStudentLocations{
-                
+            if let err = error{
+                var msg = err.domain
+                UIAlertView(title: "Error getting student info!", message: msg, delegate: nil, cancelButtonTitle: "OK")
+            }else if let stndLocations = returnedStudentLocations{
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.studentLocations = stndLocations
                 self.addAnnotations(stndLocations)
-                
             }
         }
     }

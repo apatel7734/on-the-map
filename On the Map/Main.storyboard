@@ -70,7 +70,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ieT-72-3rK">
                                 <rect key="frame" x="231" y="276" width="138" height="49"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="JqM-9S-FSM">
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="JqM-9S-FSM">
                                         <rect key="frame" x="20" y="15" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1yN-hG-Whh">

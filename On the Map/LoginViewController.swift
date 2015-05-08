@@ -42,6 +42,7 @@ class LoginViewController: UIViewController {
         if(validateInput()){
             
             loadingView.hidden = false
+
             //get sessionID from Udacity.
             UdacityClient.sharedInstance().getSessionID(userNameTextField.text, password: passwordTextField.text, completionHandler: { (udacitySession, error) -> Void in
                 
@@ -78,7 +79,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func didSignUpClicked(sender: AnyObject) {
-        
+     var urlString = NSURL(string: "https://www.udacity.com/account/auth#!/signin")
+        UIApplication.sharedApplication().openURL(urlString!)
     }
     
     
