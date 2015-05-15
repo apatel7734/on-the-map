@@ -43,4 +43,17 @@ class StudentLocation {
         
     }
     
+    //default studentLocation
+    init(mediaUrl: String, location: CLLocationCoordinate2D, mapString: String){
+        self.mediaUrl = mediaUrl
+        self.latitude = location.latitude
+        self.longitude = location.longitude
+        self.mapString = mapString
+        self.objectId = nil
+        self.firstName = "Ashish"
+        self.lastName = "Patel"
+        
+    }
+    
+    
 }

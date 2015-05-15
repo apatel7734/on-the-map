@@ -25,18 +25,18 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Do any additional setup after loading the view.
         listTableView.delegate = self
         listTableView.dataSource = self
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         studentLocations = appDelegate.studentLocations!
         
         if studentLocations.isEmpty{
             refreshData()
         }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
         
-        
+        self.listTableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {

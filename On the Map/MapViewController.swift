@@ -21,13 +21,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Do any additional setup after loading the view.
         mapView.showsUserLocation = true
         mapView.delegate = self
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         studentLocations = appDelegate.studentLocations!
         
         if studentLocations.isEmpty{
             refreshData()
+        }else{
+            self.addAnnotations(studentLocations)
         }
+        
     }
     
     override func didReceiveMemoryWarning() {

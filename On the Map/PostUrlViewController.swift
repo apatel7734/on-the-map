@@ -37,7 +37,7 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
         
         //hide button
         submitButton.layer.cornerRadius = 5.0
-//        submitButton.hidden = true
+        //        submitButton.hidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,7 +74,6 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
     
     @IBAction func didSubmitClicked(sender: AnyObject) {
         
-        
         //validate weblink
         
         //post weblink to parse
@@ -97,12 +96,16 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
                 //self.displayAlert()
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.displayAlert("Success :)", msg: "Successfully posted.")
+                    
+                    var mapStr = "\(self.placeMark.locality) \(self.placeMark.administrativeArea)"
+                    var studentInfo = StudentLocation(mediaUrl: self.webUrlTextField.text, location: self.placeMark.location.coordinate, mapString: mapStr)
+                    
+                    let app = UIApplication.sharedApplication().delegate as! AppDelegate
+                    app.studentLocations.insert(studentInfo, atIndex: 0)
                 })
                 
             }
         })
-        
-        
     }
     
     
