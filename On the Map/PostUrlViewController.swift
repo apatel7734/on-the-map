@@ -75,7 +75,15 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
     @IBAction func didSubmitClicked(sender: AnyObject) {
         
         //validate weblink
+        if(!regxValidation(webUrlTextField.text)){
+            self.displayAlert("Invalid Url.", msg: "Must enter valid Url to post.")
+        }else{
+            postDataToServer()
+        }
         
+    }
+    
+    func postDataToServer(){
         //post weblink to parse
         var studentRequest = StudentLocationRequest(mapString: "\(placeMark.locality) \(placeMark.administrativeArea)", mediaUrl: webUrlTextField.text, latitude: placeMark.location.coordinate.latitude, longitude: placeMark.location.coordinate.longitude)
         
@@ -103,11 +111,18 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
                     let app = UIApplication.sharedApplication().delegate as! AppDelegate
                     app.studentLocations.insert(studentInfo, atIndex: 0)
                 })
-                
             }
         })
     }
     
+    
+    func regxValidation(webUrl: String) -> Bool{
+        var myRegex = "(www).((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+"
+        if let match = webUrl.rangeOfString(myRegex, options: .RegularExpressionSearch){
+            return true
+        }
+        return false
+    }
     
     
     func displayAlert(title:String, msg: String){
@@ -116,16 +131,5 @@ class PostUrlViewController: UIViewController, UITextFieldDelegate{
         let alertView = UIAlertView(title: title, message: msg, delegate: nil, cancelButtonTitle: "OK")
         alertView.show()
     }
-    
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
     
 }
