@@ -18,6 +18,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var findLocationButton: UIButton!
     
+    @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
     
     var placeMark: CLPlacemark?
     
@@ -28,6 +29,10 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
         locationTextField.delegate = self
         // Do any additional setup after loading the view.
         findLocationButton.layer.cornerRadius = 5.0
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        hideProgressIndicator()
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,23 +50,27 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
     //MARK: - IBActions
     @IBAction func didFindLocationClicked(sender: AnyObject) {
         
-        println("didFindLocationClicked")
+        showProgressIndicator()
         
         //validate input
         if !validateLocationText(){
+            self.hideProgressIndicator()
             alertUser("Must provide location for post.", alertTitle: "Missing location text.")
         }
+        
         //reverse geocode location
         var geocoder = CLGeocoder()
         geocoder.geocodeAddressString(locationTextField.text, completionHandler: { (locations, error) -> Void in
             
             //validate location
             if let locationError:NSError = error as NSError!{
-                self.alertUser(locationError.description, alertTitle: "Geocoding Error!")
+                self.hideProgressIndicator()
+                self.alertUser("Error finding location :(", alertTitle: "Geocoding Error!")
                 return
             }
             
             if(locations == nil){
+                self.hideProgressIndicator()
                 self.alertUser("Please check string you've provided.", alertTitle: "Zero locations found")
                 return
             }
@@ -73,6 +82,7 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
             if(locSize > 0){
                 if let placeMark: CLPlacemark = locations?[0] as? CLPlacemark{
                     if(placeMark.locality == nil || placeMark.administrativeArea == nil){
+                        self.hideProgressIndicator()
                         self.alertUser("Please check string you've provided.", alertTitle: "City OR State couldnot be found.")
                     }else{
                         self.placeMark = placeMark
@@ -82,6 +92,15 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
                 }
             }
         })
+    }
+    
+    
+    func hideProgressIndicator(){
+        progressIndicator.hidden = true
+    }
+    
+    func showProgressIndicator(){
+        progressIndicator.hidden = false
     }
     
     
@@ -102,11 +121,6 @@ class PostLocationViewController: UIViewController, UITextFieldDelegate{
     @IBAction func didCloseClicked(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    
-    
-    
-    
     
     // MARK: - Navigation
     

@@ -206,13 +206,18 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="m2p-nC-jtq">
+                                        <rect key="frame" x="290" y="79" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.58431372549019611" green="0.16862745098039217" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="vHd-se-nYA" secondAttribute="centerX" id="KXF-1p-shj"/>
                                     <constraint firstItem="vHd-se-nYA" firstAttribute="top" secondItem="Q3K-zS-YeH" secondAttribute="top" constant="40" id="Ofa-Ok-DSP"/>
                                     <constraint firstItem="vHd-se-nYA" firstAttribute="leading" secondItem="Q3K-zS-YeH" secondAttribute="leading" constant="10" id="XVE-8C-f9E"/>
+                                    <constraint firstAttribute="centerX" secondItem="m2p-nC-jtq" secondAttribute="centerX" id="Xvv-JQ-7jK"/>
                                     <constraint firstAttribute="height" constant="177" id="aSy-nV-x1H"/>
+                                    <constraint firstAttribute="centerY" secondItem="m2p-nC-jtq" secondAttribute="centerY" id="tdV-aY-ig5"/>
                                     <constraint firstAttribute="trailing" secondItem="vHd-se-nYA" secondAttribute="trailing" constant="10" id="zVe-tj-8ZI"/>
                                 </constraints>
                             </view>
@@ -267,6 +272,7 @@
                     <connections>
                         <outlet property="findLocationButton" destination="ydo-8A-rvM" id="5Yf-XN-glN"/>
                         <outlet property="locationTextField" destination="vHd-se-nYA" id="vNU-iO-VWe"/>
+                        <outlet property="progressIndicator" destination="m2p-nC-jtq" id="zVM-bA-xyr"/>
                         <segue destination="clQ-iE-eyn" kind="show" identifier="weburlPushSegue" id="9rr-h8-7Vn"/>
                     </connections>
                 </viewController>
