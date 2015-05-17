@@ -10,8 +10,14 @@ import Foundation
 
 class NetworkClient: NSObject {
     
-func escapedParameters(parameters: [String : AnyObject]) -> String {
+    class func hasConnectivity() -> Bool {
+        let reachability: Reachability = Reachability.reachabilityForInternetConnection()
+        let networkStatus: Int = reachability.currentReachabilityStatus().value
+        return networkStatus != 0
+    }
     
+    func escapedParameters(parameters: [String : AnyObject]) -> String {
+        
         var urlVars = [String]()
         
         for (key, value) in parameters {

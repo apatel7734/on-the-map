@@ -119,14 +119,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     
     func refreshData(){
-        ParseClient.sharedInstance().getStudentLocations {(returnedStudentLocations, error) -> Void in
-            if let err = error{
-                var msg = err.domain
-                UIAlertView(title: "Error getting student info!", message: msg, delegate: nil, cancelButtonTitle: "OK")
-            }else if let stndLocations = returnedStudentLocations{
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                appDelegate.studentLocations = stndLocations
-                self.addAnnotations(stndLocations)
+        //check network availability.
+        if(!NetworkClient.hasConnectivity()){
+            UIAlertView(title: "No network.", message: "Please check you network from settings." , delegate: nil, cancelButtonTitle: "OK").show()
+        }else{
+            ParseClient.sharedInstance().getStudentLocations {(returnedStudentLocations, error) -> Void in
+                if let err = error{
+                    var msg = err.domain
+                    UIAlertView(title: "Error getting student info!", message: msg, delegate: nil, cancelButtonTitle: "OK").show()
+                    
+                }else if let stndLocations = returnedStudentLocations{
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    appDelegate.studentLocations = stndLocations
+                    self.addAnnotations(stndLocations)
+                }
             }
         }
     }

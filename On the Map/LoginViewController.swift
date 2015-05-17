@@ -38,6 +38,12 @@ class LoginViewController: UIViewController {
     @IBAction func didLoginClicked(sender: AnyObject) {
         var errorString:String?
         
+        //check network availability
+        if(!NetworkClient.hasConnectivity()){
+            UIAlertView(title: "No network.", message: "Please check you network from settings." , delegate: nil, cancelButtonTitle: "OK").show()
+            return
+        }
+        
         //validate input.
         if(validateInput()){
             

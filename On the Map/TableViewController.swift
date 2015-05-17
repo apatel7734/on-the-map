@@ -28,7 +28,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     override func viewWillAppear(animated: Bool) {
-
+        
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         studentLocations = appDelegate.studentLocations!
         
@@ -74,10 +74,14 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func refreshData(){
-        ParseClient.sharedInstance().getStudentLocations { (returnedStudentLocations, error) -> Void in
-            if let stndLocations = returnedStudentLocations{
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                appDelegate.studentLocations = stndLocations
+        if(!NetworkClient.hasConnectivity()){
+            UIAlertView(title: "No network.", message: "Please check you network from settings." , delegate: nil, cancelButtonTitle: "OK").show()
+        }else {
+            ParseClient.sharedInstance().getStudentLocations { (returnedStudentLocations, error) -> Void in
+                if let stndLocations = returnedStudentLocations{
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    appDelegate.studentLocations = stndLocations
+                }
             }
         }
     }
